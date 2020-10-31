@@ -1,11 +1,8 @@
-import { Context } from "koa";
+import { IKoaAppContext } from "@lindorm-io/koa";
 import { IMongoConnectionOptions, MongoConnection } from "@lindorm-io/mongo";
-import { Logger } from "@lindorm-io/winston";
-import { TObject, TPromise } from "@lindorm-io/global";
+import { TPromise } from "@lindorm-io/core";
 
-export interface IMongoMiddlewareContext extends Context {
-  logger: Logger;
-  metrics: TObject<number>;
+export interface IMongoMiddlewareContext extends IKoaAppContext {
   mongo: MongoConnection;
 }
 

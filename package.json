@@ -1,6 +1,6 @@
 {
   "name": "@lindorm-io/koa-mongo",
-  "description": "",
+  "description": "Mongo Connection middleware for @lindorm-io/koa applications",
   "version": "0.0.1",
   "license": "ISC",
   "main": "dist/index.js",
@@ -35,21 +35,21 @@
     "update": "ncu -a && npm install",
     "validate": "npm run test:clear && npm run lint && npm run typecheck && npm run test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@lindorm-io/core": "^0.0.1"
+  },
   "peerDependencies": {
-    "@lindorm-io/global": ">=0.0.1",
-    "@lindorm-io/mongo": ">=0.0.2",
-    "@lindorm-io/winston": ">=0.0.1",
-    "koa": ">=2.13.0"
+    "@lindorm-io/koa": ">=0.0.2",
+    "@lindorm-io/mongo": ">=0.0.3"
   },
   "devDependencies": {
-    "@lindorm-io/common": "0.0.1",
-    "@lindorm-io/global": "^0.0.1",
-    "@lindorm-io/mongo": "^0.0.2",
-    "@lindorm-io/winston": "^0.0.1",
+    "@lindorm-io/koa": "^0.0.2",
+    "@lindorm-io/mongo": "^0.0.4",
     "@types/hapi__joi": "^17.1.6",
     "@types/jest": "^26.0.15",
     "@types/koa": "^2.11.6",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-router": "^7.4.1",
     "@types/mongodb": "^3.5.32",
     "@types/node": "^14.14.6",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
