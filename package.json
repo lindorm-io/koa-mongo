@@ -39,11 +39,11 @@
     "@lindorm-io/core": "^0.0.2"
   },
   "peerDependencies": {
-    "@lindorm-io/koa": ">=0.0.3",
+    "@lindorm-io/koa": ">=0.0.4",
     "@lindorm-io/mongo": ">=0.0.5"
   },
   "devDependencies": {
-    "@lindorm-io/koa": "^0.0.3",
+    "@lindorm-io/koa": "^0.0.4",
     "@lindorm-io/mongo": "^0.0.5",
     "@types/hapi__joi": "^17.1.6",
     "@types/jest": "^26.0.15",
