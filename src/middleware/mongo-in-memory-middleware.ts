@@ -1,18 +1,16 @@
-import { IMongoConnectionOptions, MongoInMemoryConnection } from "@lindorm-io/mongo";
+import { MongoInMemoryConnection } from "@lindorm-io/mongo";
 import { IMongoMiddlewareContext } from "../types";
 import { TPromise } from "@lindorm-io/core";
 
-export const mongoInMemoryMiddleware = (options: IMongoConnectionOptions) => async (
+export const mongoInMemoryMiddleware = (mongo: MongoInMemoryConnection) => async (
   ctx: IMongoMiddlewareContext,
   next: TPromise<void>,
 ): Promise<void> => {
   const start = Date.now();
 
-  ctx.mongo = new MongoInMemoryConnection(options);
+  ctx.mongo = mongo;
 
-  await ctx.mongo.connect();
-
-  ctx.logger.debug("mongo connection established");
+  ctx.logger.debug("mongo in memory connection established");
 
   ctx.metrics = {
     ...(ctx.metrics || {}),

@@ -11,18 +11,10 @@ const logger = {
 };
 
 describe("mongoInMemoryMiddleware", () => {
-  let options: any;
   let ctx: any;
   let next: any;
 
   beforeEach(() => {
-    options = {
-      user: "user",
-      password: "password",
-      host: "host",
-      port: 100,
-      name: "database",
-    };
     ctx = {
       logger,
       metrics: {},
@@ -31,7 +23,17 @@ describe("mongoInMemoryMiddleware", () => {
   });
 
   test("should set mongo on context", async () => {
-    await expect(mongoInMemoryMiddleware(options)(ctx, next)).resolves.toBe(undefined);
+    await expect(
+      mongoInMemoryMiddleware(
+        new MongoInMemoryConnection({
+          user: "user",
+          password: "password",
+          host: "host",
+          port: 999,
+          name: "name",
+        }),
+      )(ctx, next),
+    ).resolves.toBe(undefined);
 
     expect(ctx.mongo).toStrictEqual(expect.any(MongoInMemoryConnection));
   });
