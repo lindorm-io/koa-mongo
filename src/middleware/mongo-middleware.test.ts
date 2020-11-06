@@ -17,7 +17,7 @@ const logger = {
   silly: jest.fn(),
 };
 
-describe("mongo-middleware.ts", () => {
+describe("mongoMiddleware", () => {
   let options: any;
   let ctx: any;
   let next: any;

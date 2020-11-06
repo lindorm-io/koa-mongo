@@ -1,5 +1,5 @@
 import { MongoInMemoryConnection } from "@lindorm-io/mongo";
-import { mongoInMemoryMiddleware } from "./mock-mongo-middleware";
+import { mongoInMemoryMiddleware } from "./mongo-in-memory-middleware";
 
 const logger = {
   error: jest.fn(),
@@ -10,7 +10,7 @@ const logger = {
   silly: jest.fn(),
 };
 
-describe("mongo-middleware.ts", () => {
+describe("mongoInMemoryMiddleware", () => {
   let options: any;
   let ctx: any;
   let next: any;

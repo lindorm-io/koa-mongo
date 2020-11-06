@@ -1,10 +1,6 @@
-import { IKoaAppContext } from "@lindorm-io/koa";
 import { IMongoConnectionOptions, MongoConnection } from "@lindorm-io/mongo";
+import { IMongoMiddlewareContext } from "../types";
 import { TPromise } from "@lindorm-io/core";
-
-export interface IMongoMiddlewareContext extends IKoaAppContext {
-  mongo: MongoConnection;
-}
 
 export const mongoMiddleware = (options: IMongoConnectionOptions) => async (
   ctx: IMongoMiddlewareContext,
