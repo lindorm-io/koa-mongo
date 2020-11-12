@@ -15,10 +15,15 @@ This package has the following peer dependencies:
 
 ```typescript
 koaApp.addMiddleware(mongoMiddleware({
-  user: "user",
-  password: "password",
-  host: "https://db/location/",
-  port: 27000,
-  name: "db-name",
+  type: MongoConnectionType.STORAGE,
+  auth: {
+    user: "user",
+    password: "password",
+  },
+  url: {
+    host: "https://db/location/",
+    port: 27000,
+  },
+  databaseName: "name",
 }));
 ```
