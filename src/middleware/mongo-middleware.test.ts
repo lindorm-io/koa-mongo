@@ -1,7 +1,10 @@
 import Joi from "@hapi/joi";
 import MockDate from "mockdate";
 import { EntityBase } from "@lindorm-io/core";
-import { IMongoMiddlewareOptions, mongoMiddleware } from "./mongo-middleware";
+import { IMongoMiddlewareOptions } from "../types";
+import { Logger, LogLevel } from "@lindorm-io/winston";
+import { MongoInMemoryDatabase } from "@lindorm-io/mongo/dist/class";
+import { mongoMiddleware } from "./mongo-middleware";
 import {
   IRepositoryOptions,
   MongoConnection,
@@ -9,8 +12,6 @@ import {
   RepositoryBase,
   TMongoDatabase,
 } from "@lindorm-io/mongo";
-import { Logger, LogLevel } from "@lindorm-io/winston";
-import { MongoInMemoryDatabase } from "@lindorm-io/mongo/dist/class";
 
 jest.mock("uuid", () => ({
   v4: () => "e397bc49-849e-4df6-a536-7b9fa3574ace",

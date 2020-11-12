@@ -1,5 +1,9 @@
 import { IKoaAppContext } from "@lindorm-io/koa";
-import { MongoConnection } from "@lindorm-io/mongo";
+import { IMongoConnectionOptions, MongoConnection, TMongoDatabase } from "@lindorm-io/mongo";
+
+export interface IMongoMiddlewareOptions extends IMongoConnectionOptions {
+  databaseRef?: (database: TMongoDatabase) => void;
+}
 
 export interface IMongoMiddlewareContext extends IKoaAppContext {
   mongo: MongoConnection;
