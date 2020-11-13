@@ -47,7 +47,7 @@ describe("mongoMiddleware", () => {
 
     expect(ctx.mongo).toStrictEqual(expect.any(MongoConnection));
 
-    const db = await ctx.mongo.getDatabase();
+    const db = ctx.mongo.getDatabase();
     const collection = await db.collection("collectionName");
     await collection.createIndex({ index: "one" }, { options: "two" });
 
