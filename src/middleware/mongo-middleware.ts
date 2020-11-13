@@ -1,8 +1,8 @@
-import { IMongoMiddlewareContext, IMongoMiddlewareOptions } from "../types";
-import { MongoConnection, MongoConnectionType } from "@lindorm-io/mongo";
+import { IMongoConnectionOptions, MongoConnection } from "@lindorm-io/mongo";
+import { IMongoMiddlewareContext } from "../types";
 import { TPromise } from "@lindorm-io/core";
 
-export const mongoMiddleware = (options: IMongoMiddlewareOptions) => async (
+export const mongoMiddleware = (options: IMongoConnectionOptions) => async (
   ctx: IMongoMiddlewareContext,
   next: TPromise<void>,
 ): Promise<void> => {
@@ -11,11 +11,6 @@ export const mongoMiddleware = (options: IMongoMiddlewareOptions) => async (
   ctx.mongo = new MongoConnection(options);
 
   await ctx.mongo.connect();
-
-  if (options.type === MongoConnectionType.MEMORY && options.databaseRef) {
-    options.databaseRef(ctx.mongo.getDatabase());
-    ctx.logger.debug("mongo database ref called");
-  }
 
   ctx.logger.debug("mongo connection established");
 
@@ -27,8 +22,6 @@ export const mongoMiddleware = (options: IMongoMiddlewareOptions) => async (
   try {
     await next();
   } finally {
-    if (options.type !== MongoConnectionType.MEMORY) {
-      await ctx.mongo.disconnect();
-    }
+    await ctx.mongo.disconnect();
   }
 };
