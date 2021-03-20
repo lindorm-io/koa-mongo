@@ -5,13 +5,9 @@ import { Logger, LogLevel } from "@lindorm-io/winston";
 import { TObject, TPromise } from "@lindorm-io/core";
 import { mongoMiddleware } from "./mongo-middleware";
 
-jest.mock("uuid", () => ({
-  v4: () => "e397bc49-849e-4df6-a536-7b9fa3574ace",
-}));
-
 MockDate.set("2020-01-01 08:00:00.000");
 
-const logger = new Logger({ packageName: "n", packageVersion: "v" });
+const logger = new Logger({ packageName: "n", packageVersion: "v", test: true });
 logger.addConsole(LogLevel.ERROR);
 
 describe("mongoMiddleware", () => {
