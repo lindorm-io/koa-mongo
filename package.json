@@ -39,8 +39,8 @@
     "@lindorm-io/core": "^0.1.8"
   },
   "peerDependencies": {
-    "@lindorm-io/koa": ">=0.1.4",
-    "@lindorm-io/mongo": ">=0.2.6"
+    "@lindorm-io/koa": ">=0.1.5",
+    "@lindorm-io/mongo": ">=0.2.7"
   },
   "devDependencies": {
     "@lindorm-io/koa": "^0.1.3",
