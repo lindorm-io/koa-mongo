@@ -1,10 +1,9 @@
 import { IMongoConnectionOptions, MongoConnection } from "@lindorm-io/mongo";
-import { IMongoMiddlewareContext } from "../types";
-import { TPromise } from "@lindorm-io/core";
+import { IMongoMiddlewareContext, TNext } from "../types";
 
 export const mongoMiddleware = (options: IMongoConnectionOptions) => async (
   ctx: IMongoMiddlewareContext,
-  next: TPromise<void>,
+  next: TNext,
 ): Promise<void> => {
   const start = Date.now();
 
