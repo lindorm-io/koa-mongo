@@ -10,6 +10,7 @@ npm install --save @lindorm-io/koa-mongo
 This package has the following peer dependencies: 
 * [@lindorm-io/koa](https://www.npmjs.com/package/@lindorm-io/koa)
 * [@lindorm-io/mongo](https://www.npmjs.com/package/@lindorm-io/mongo)
+* [@lindorm-io/winston](https://www.npmjs.com/package/@lindorm-io/winston)
 
 ## Usage
 
