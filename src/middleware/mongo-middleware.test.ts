@@ -16,17 +16,12 @@ describe("mongoMiddleware", () => {
     inMemoryStore = { initialized: true };
 
     options = {
-      type: MongoConnectionType.MEMORY,
-      auth: {
-        user: "user",
-        password: "password",
-      },
-      url: {
-        host: "host",
-        port: 100,
-      },
+      auth: { user: "user", password: "password" },
       databaseName: "databaseName",
+      hostname: "host",
       inMemoryStore,
+      port: 100,
+      type: MongoConnectionType.MEMORY,
     };
 
     ctx = { client: {}, logger, metrics: {} };
@@ -37,7 +32,7 @@ describe("mongoMiddleware", () => {
 
     expect(ctx.client.mongo).toStrictEqual(expect.any(MongoConnection));
 
-    const db = ctx.client.mongo.getDatabase();
+    const db = ctx.client.mongo.database();
     const collection = await db.collection("collectionName");
     await collection.createIndex({ index: "one" }, { options: "two" });
 

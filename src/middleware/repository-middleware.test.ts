@@ -9,7 +9,7 @@ describe("repositoryMiddleware", () => {
 
   beforeEach(() => {
     ctx = {
-      client: { mongo: { getDatabase: () => "db" } },
+      client: { mongo: { database: () => "db" } },
       logger,
       metrics: {},
       repository: {},
