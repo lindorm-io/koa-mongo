@@ -8,9 +8,9 @@ export const mongoMiddleware = (options: IMongoConnectionOptions): Middleware =>
 ): Promise<void> => {
   const start = Date.now();
 
-  ctx.mongo = new MongoConnection(options);
+  ctx.client.mongo = new MongoConnection(options);
 
-  await ctx.mongo.connect();
+  await ctx.client.mongo.connect();
 
   ctx.logger.debug("mongo connection established");
 
@@ -19,6 +19,6 @@ export const mongoMiddleware = (options: IMongoConnectionOptions): Middleware =>
   try {
     await next();
   } finally {
-    await ctx.mongo.disconnect();
+    await ctx.client.mongo.disconnect();
   }
 };

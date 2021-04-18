@@ -9,9 +9,9 @@ describe("repositoryMiddleware", () => {
 
   beforeEach(() => {
     ctx = {
+      client: { mongo: { getDatabase: () => "db" } },
       logger,
       metrics: {},
-      mongo: { getDatabase: () => "db" },
       repository: {},
     };
     next = () => Promise.resolve();
@@ -20,14 +20,14 @@ describe("repositoryMiddleware", () => {
   test("should set repository on context", async () => {
     // @ts-ignore
     await expect(repositoryMiddleware(Test)(ctx, next)).resolves.toBe(undefined);
-    expect(ctx.repository).toMatchSnapshot();
+    expect(ctx.repository.test).toStrictEqual(expect.any(Test));
     expect(ctx.metrics.repository).toStrictEqual(expect.any(Number));
   });
 
   test("should set repository with specific key", async () => {
     // @ts-ignore
     await expect(repositoryMiddleware(Test, { key: "otherKey" })(ctx, next)).resolves.toBe(undefined);
-    expect(ctx.repository).toMatchSnapshot();
+    expect(ctx.repository.otherKey).toStrictEqual(expect.any(Test));
     expect(ctx.metrics.repository).toStrictEqual(expect.any(Number));
   });
 });

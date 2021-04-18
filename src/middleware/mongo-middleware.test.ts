@@ -29,15 +29,15 @@ describe("mongoMiddleware", () => {
       inMemoryStore,
     };
 
-    ctx = { logger, metrics: {} };
+    ctx = { client: {}, logger, metrics: {} };
   });
 
   test("should set a mongo connection on context", async () => {
     await expect(mongoMiddleware(options)(ctx, next)).resolves.toBe(undefined);
 
-    expect(ctx.mongo).toStrictEqual(expect.any(MongoConnection));
+    expect(ctx.client.mongo).toStrictEqual(expect.any(MongoConnection));
 
-    const db = ctx.mongo.getDatabase();
+    const db = ctx.client.mongo.getDatabase();
     const collection = await db.collection("collectionName");
     await collection.createIndex({ index: "one" }, { options: "two" });
 

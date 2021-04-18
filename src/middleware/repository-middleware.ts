@@ -13,7 +13,7 @@ export const repositoryMiddleware = (
 ): Middleware => async (ctx: IKoaMongoContext, next: Next): Promise<void> => {
   const start = Date.now();
 
-  const db = await ctx.mongo.getDatabase();
+  const db = await ctx.client.mongo.getDatabase();
   const logger = ctx.logger;
 
   /*
