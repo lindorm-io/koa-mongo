@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`repositoryMiddleware should set repository on context 1`] = `
+Object {
+  "test": Test {},
+}
+`;
+
+exports[`repositoryMiddleware should set repository with specific key 1`] = `
+Object {
+  "otherKey": Test {},
+}
+`;

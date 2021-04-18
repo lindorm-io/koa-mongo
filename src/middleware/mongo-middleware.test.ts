@@ -1,20 +1,16 @@
 import MockDate from "mockdate";
 import { IMongoConnectionOptions, MongoConnection, MongoConnectionType } from "@lindorm-io/mongo";
-import { IMongoMiddlewareContext } from "../types";
-import { Logger, LogLevel } from "@lindorm-io/winston";
 import { mongoMiddleware } from "./mongo-middleware";
+import { logger } from "../test";
 
 MockDate.set("2020-01-01 08:00:00.000");
 
-const logger = new Logger({ packageName: "n", packageVersion: "v", test: true });
-logger.addConsole(LogLevel.ERROR);
-
-const next = jest.fn()
+const next = jest.fn();
 
 describe("mongoMiddleware", () => {
+  let ctx: any;
   let inMemoryStore: Record<string, any>;
   let options: IMongoConnectionOptions;
-  let ctx: IMongoMiddlewareContext;
 
   beforeEach(() => {
     inMemoryStore = { initialized: true };
@@ -33,8 +29,7 @@ describe("mongoMiddleware", () => {
       inMemoryStore,
     };
 
-    // @ts-ignore
-    ctx = { logger };
+    ctx = { logger, metrics: {} };
   });
 
   test("should set a mongo connection on context", async () => {

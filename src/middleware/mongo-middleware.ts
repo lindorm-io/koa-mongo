@@ -1,9 +1,10 @@
+import { IKoaMongoContext } from "../types";
 import { IMongoConnectionOptions, MongoConnection } from "@lindorm-io/mongo";
-import { IMongoMiddlewareContext, TNext } from "../types";
+import { Middleware, Next } from "koa";
 
-export const mongoMiddleware = (options: IMongoConnectionOptions) => async (
-  ctx: IMongoMiddlewareContext,
-  next: TNext,
+export const mongoMiddleware = (options: IMongoConnectionOptions): Middleware => async (
+  ctx: IKoaMongoContext,
+  next: Next,
 ): Promise<void> => {
   const start = Date.now();
 
@@ -13,10 +14,7 @@ export const mongoMiddleware = (options: IMongoConnectionOptions) => async (
 
   ctx.logger.debug("mongo connection established");
 
-  ctx.metrics = {
-    ...(ctx.metrics || {}),
-    mongoConnection: Date.now() - start,
-  };
+  ctx.metrics.mongo = (ctx.metrics.mongo || 0) + (Date.now() - start);
 
   try {
     await next();
