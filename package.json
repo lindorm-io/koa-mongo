@@ -32,7 +32,7 @@
     "test:clear": "jest --clearCache",
     "test:watch": "jest --config jest.config.js --watch --",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "update": "ncu -u && npm install",
+    "update": "ncu -u && npm-check -yE && npm audit fix",
     "validate": "npm run test:clear && npm run lint && npm run typecheck && npm run test"
   },
   "dependencies": {
