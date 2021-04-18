@@ -39,13 +39,13 @@
     "lodash": "4.17.21"
   },
   "peerDependencies": {
-    "@lindorm-io/koa": "0.2.3",
-    "@lindorm-io/mongo": "0.2.8",
-    "@lindorm-io/winston": "0.1.4"
+    "@lindorm-io/koa": ">=0.2.4",
+    "@lindorm-io/mongo": ">=0.3.0",
+    "@lindorm-io/winston": ">=0.1.4"
   },
   "devDependencies": {
-    "@lindorm-io/koa": "0.2.3",
-    "@lindorm-io/mongo": "0.2.8",
+    "@lindorm-io/koa": "0.2.4",
+    "@lindorm-io/mongo": "0.3.0",
     "@lindorm-io/winston": "0.1.4",
     "@types/hapi__joi": "17.1.6",
     "@types/jest": "26.0.22",
