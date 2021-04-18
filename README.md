@@ -14,17 +14,22 @@ This package has the following peer dependencies:
 
 ## Usage
 
+### Client Middleware
 ```typescript
 koaApp.addMiddleware(mongoMiddleware({
-  type: MongoConnectionType.STORAGE,
-  auth: {
-    user: "user",
-    password: "password",
-  },
-  url: {
-    host: "https://db/location/",
-    port: 27000,
-  },
+  auth: { user: "user", password: "password" },
   databaseName: "name",
+  hostname: "db.location.com",
+  port: 27000,
+  type: MongoConnectionType.STORAGE,
 }));
+
+await ctx.client.mongo.connect();
+```
+
+### Repository Middleware
+```typescript
+koaApp.addMiddleware(repositoryMiddleware(YourRepositoryClass));
+
+await ctx.repository.yourRepositoryClass.create(yourEntity);
 ```

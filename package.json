@@ -32,7 +32,7 @@
     "test": "jest --config jest.config.js --forceExit",
     "test:clear": "jest --clearCache",
     "test:watch": "jest --config jest.config.js --watch --",
-    "update": "ncu -u && npm-check -yE && npm audit fix",
+    "update": "npm-check -yE && ncu -u && npm audit fix",
     "validate": "npm run test:clear && npm run check:lint && npm run check:types && npm run test"
   },
   "dependencies": {
@@ -40,12 +40,12 @@
   },
   "peerDependencies": {
     "@lindorm-io/koa": ">=0.2.4",
-    "@lindorm-io/mongo": ">=0.3.0",
+    "@lindorm-io/mongo": ">=0.3.1",
     "@lindorm-io/winston": ">=0.1.4"
   },
   "devDependencies": {
     "@lindorm-io/koa": "0.2.4",
-    "@lindorm-io/mongo": "0.3.0",
+    "@lindorm-io/mongo": "0.3.1",
     "@lindorm-io/winston": "0.1.4",
     "@types/hapi__joi": "17.1.6",
     "@types/jest": "26.0.22",
