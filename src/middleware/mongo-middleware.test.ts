@@ -3,7 +3,7 @@ import { IMongoConnectionOptions, MongoConnection, MongoConnectionType } from "@
 import { mongoMiddleware } from "./mongo-middleware";
 import { logger } from "../test";
 
-MockDate.set("2020-01-01 08:00:00.000");
+MockDate.set("2020-01-01T08:00:00.000Z");
 
 const next = jest.fn();
 
@@ -28,7 +28,7 @@ describe("mongoMiddleware", () => {
   });
 
   test("should set a mongo connection on context", async () => {
-    await expect(mongoMiddleware(options)(ctx, next)).resolves.toBe(undefined);
+    await expect(mongoMiddleware(options)(ctx, next)).resolves.toBeUndefined();
 
     expect(ctx.client.mongo).toStrictEqual(expect.any(MongoConnection));
 
