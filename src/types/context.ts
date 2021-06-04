@@ -1,9 +1,9 @@
-import { IKoaAppContext } from "@lindorm-io/koa";
+import { KoaContext } from "@lindorm-io/koa";
 import { MongoConnection, MongoRepository } from "@lindorm-io/mongo";
 
-export interface IKoaMongoContext extends IKoaAppContext {
+export interface MongoContext extends KoaContext {
   client: {
     mongo: MongoConnection;
   };
-  repository: Record<string, MongoRepository>;
+  repository: Record<string, MongoRepository<any>>;
 }

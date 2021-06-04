@@ -1,5 +1,5 @@
-import { DefaultState, Middleware } from "koa";
-import { IKoaMongoContext } from "../types";
+import { Middleware } from "@lindorm-io/koa";
+import { MongoContext } from "../types";
 import { MongoRepository } from "@lindorm-io/mongo";
 import { camelCase } from "lodash";
 
@@ -8,10 +8,7 @@ interface RepositoryMiddlewareOptions {
 }
 
 export const repositoryMiddleware =
-  (
-    Repository: typeof MongoRepository,
-    options?: RepositoryMiddlewareOptions,
-  ): Middleware<DefaultState, IKoaMongoContext> =>
+  (Repository: typeof MongoRepository, options?: RepositoryMiddlewareOptions): Middleware<MongoContext> =>
   async (ctx, next): Promise<void> => {
     const start = Date.now();
 

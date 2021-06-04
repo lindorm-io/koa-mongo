@@ -1,9 +1,9 @@
-import { DefaultState, Middleware } from "koa";
-import { IKoaMongoContext } from "../types";
-import { IMongoConnectionOptions, MongoConnection } from "@lindorm-io/mongo";
+import { Middleware } from "@lindorm-io/koa";
+import { MongoContext } from "../types";
+import { MongoConnectionOptions, MongoConnection } from "@lindorm-io/mongo";
 
 export const mongoMiddleware =
-  (options: IMongoConnectionOptions): Middleware<DefaultState, IKoaMongoContext> =>
+  (options: MongoConnectionOptions): Middleware<MongoContext> =>
   async (ctx, next): Promise<void> => {
     const start = Date.now();
 

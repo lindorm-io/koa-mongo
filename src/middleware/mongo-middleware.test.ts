@@ -1,5 +1,5 @@
 import MockDate from "mockdate";
-import { IMongoConnectionOptions, MongoConnection, MongoConnectionType } from "@lindorm-io/mongo";
+import { MongoConnectionOptions, MongoConnection, MongoConnectionType } from "@lindorm-io/mongo";
 import { mongoMiddleware } from "./mongo-middleware";
 import { logger } from "../test";
 
@@ -10,7 +10,7 @@ const next = jest.fn();
 describe("mongoMiddleware", () => {
   let ctx: any;
   let inMemoryStore: Record<string, any>;
-  let options: IMongoConnectionOptions;
+  let options: MongoConnectionOptions;
 
   beforeEach(() => {
     inMemoryStore = { initialized: true };
