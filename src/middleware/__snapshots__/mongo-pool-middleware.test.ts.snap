@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mongoPoolMiddleware should automatically connect 1`] = `
+Object {
+  "databaseName": Object {
+    "collectionName": Object {
+      "data": Array [],
+      "indices": Array [
+        Object {
+          "index": Object {
+            "index": "one",
+          },
+          "options": Object {
+            "options": "two",
+          },
+        },
+      ],
+    },
+  },
+  "initialized": true,
+}
+`;
+
+exports[`mongoPoolMiddleware should set a mongo connection on context 1`] = `
+Object {
+  "databaseName": Object {
+    "collectionName": Object {
+      "data": Array [],
+      "indices": Array [
+        Object {
+          "index": Object {
+            "index": "one",
+          },
+          "options": Object {
+            "options": "two",
+          },
+        },
+      ],
+    },
+  },
+  "initialized": true,
+}
+`;
