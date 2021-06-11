@@ -2,10 +2,11 @@ import MockDate from "mockdate";
 import { MongoConnection, MongoConnectionType } from "@lindorm-io/mongo";
 import { logger } from "../test";
 import { mongoPoolMiddleware } from "./mongo-pool-middleware";
+import { Metric } from "@lindorm-io/koa";
 
 MockDate.set("2020-01-01T08:00:00.000Z");
 
-const next = jest.fn();
+const next = () => Promise.resolve();
 
 describe("mongoPoolMiddleware", () => {
   let ctx: any;
@@ -24,7 +25,12 @@ describe("mongoPoolMiddleware", () => {
       type: MongoConnectionType.MEMORY,
     });
 
-    ctx = { client: {}, logger, metrics: {} };
+    ctx = {
+      client: {},
+      logger,
+      metrics: {},
+    };
+    ctx.getMetric = (key: string) => new Metric(ctx, key);
   });
 
   test("should set a mongo connection on context", async () => {

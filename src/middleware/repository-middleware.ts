@@ -3,14 +3,14 @@ import { MongoContext } from "../types";
 import { MongoRepository } from "@lindorm-io/mongo";
 import { camelCase } from "lodash";
 
-interface RepositoryMiddlewareOptions {
+interface Options {
   key?: string;
 }
 
 export const repositoryMiddleware =
-  (Repository: typeof MongoRepository, options?: RepositoryMiddlewareOptions): Middleware<MongoContext> =>
+  (Repository: typeof MongoRepository, options?: Options): Middleware<MongoContext> =>
   async (ctx, next): Promise<void> => {
-    const start = Date.now();
+    const metric = ctx.getMetric("mongo");
 
     /*
      * Ignoring TS here since Repository needs to be abstract
@@ -22,7 +22,7 @@ export const repositoryMiddleware =
       logger: ctx.logger,
     });
 
-    ctx.metrics.repository = (ctx.metrics.repository || 0) + (Date.now() - start);
+    metric.end();
 
     await next();
   };

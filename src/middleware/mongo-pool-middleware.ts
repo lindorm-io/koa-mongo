@@ -5,7 +5,7 @@ import { MongoContext } from "../types";
 export const mongoPoolMiddleware =
   (mongo: MongoConnection): Middleware<MongoContext> =>
   async (ctx, next): Promise<void> => {
-    const start = Date.now();
+    const metric = ctx.getMetric("mongo");
 
     if (!mongo.isConnected()) {
       await mongo.connect();
@@ -15,7 +15,7 @@ export const mongoPoolMiddleware =
 
     ctx.logger.debug("mongo connection added to context");
 
-    ctx.metrics.mongo = (ctx.metrics.mongo || 0) + (Date.now() - start);
+    metric.end();
 
     await next();
   };

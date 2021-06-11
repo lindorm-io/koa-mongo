@@ -5,7 +5,7 @@ import { MongoConnectionOptions, MongoConnection } from "@lindorm-io/mongo";
 export const mongoMiddleware =
   (options: MongoConnectionOptions): Middleware<MongoContext> =>
   async (ctx, next): Promise<void> => {
-    const start = Date.now();
+    const metric = ctx.getMetric("mongo");
 
     ctx.client.mongo = new MongoConnection(options);
 
@@ -13,7 +13,7 @@ export const mongoMiddleware =
 
     ctx.logger.debug("mongo connection established");
 
-    ctx.metrics.mongo = (ctx.metrics.mongo || 0) + (Date.now() - start);
+    metric.end();
 
     try {
       await next();
