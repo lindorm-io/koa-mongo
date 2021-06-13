@@ -1,6 +1,6 @@
 import { Middleware } from "@lindorm-io/koa";
 import { MongoContext } from "../types";
-import { MongoRepository } from "@lindorm-io/mongo";
+import { RepositoryBase } from "@lindorm-io/mongo";
 import { camelCase } from "lodash";
 
 interface Options {
@@ -8,17 +8,19 @@ interface Options {
 }
 
 export const repositoryMiddleware =
-  (Repository: typeof MongoRepository, options?: Options): Middleware<MongoContext> =>
+  (Repository: typeof RepositoryBase, options?: Options): Middleware<MongoContext> =>
   async (ctx, next): Promise<void> => {
     const metric = ctx.getMetric("mongo");
+
+    const repository = options?.key || camelCase(Repository.name);
 
     /*
      * Ignoring TS here since Repository needs to be abstract
      * to ensure that all input at least attempts to be unique
      */
     // @ts-ignore
-    ctx.repository[camelCase(options?.key || Repository.name)] = new Repository({
-      db: await ctx.client.mongo.database(),
+    ctx.repository[repository] = new Repository({
+      db: ctx.client.mongo.database(),
       logger: ctx.logger,
     });
 
