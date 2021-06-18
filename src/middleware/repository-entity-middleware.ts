@@ -12,12 +12,8 @@ interface Options {
 }
 
 export const repositoryEntityMiddleware =
-  (
-    path: string,
-    Entity: typeof EntityBase,
-    Repository: typeof RepositoryBase,
-    options?: Options,
-  ): Middleware<MongoContext> =>
+  (Entity: typeof EntityBase, Repository: typeof RepositoryBase, options?: Options) =>
+  (path: string): Middleware<MongoContext> =>
   async (ctx, next): Promise<void> => {
     const metric = ctx.getMetric("entity");
 

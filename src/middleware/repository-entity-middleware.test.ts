@@ -1,8 +1,8 @@
-import { Metric, Middleware } from "@lindorm-io/koa";
+import { ClientError } from "@lindorm-io/errors";
+import { EntityNotFoundError } from "@lindorm-io/mongo";
+import { Metric } from "@lindorm-io/koa";
 import { logger } from "../test";
 import { repositoryEntityMiddleware } from "./repository-entity-middleware";
-import { EntityNotFoundError } from "@lindorm-io/mongo";
-import { ClientError } from "@lindorm-io/errors";
 
 class TestEntity {}
 class TestRepository {}
@@ -11,7 +11,8 @@ const next = () => Promise.resolve();
 
 describe("repositoryEntityMiddleware", () => {
   let ctx: any;
-  let middleware: Middleware<any>;
+  let path: string;
+  let middleware: any;
 
   beforeEach(() => {
     ctx = {
@@ -27,11 +28,14 @@ describe("repositoryEntityMiddleware", () => {
     };
     ctx.getMetric = (key: string) => new Metric(ctx, key);
 
+    path = "request.body.identifier";
+
     // @ts-ignore
-    middleware = repositoryEntityMiddleware("request.body.identifier", TestEntity, TestRepository);
+    middleware = repositoryEntityMiddleware(TestEntity, TestRepository)(path);
   });
 
   test("should set entity on context", async () => {
+    // @ts-ignore
     await expect(middleware(ctx, next)).resolves.toBeUndefined();
 
     expect(ctx.entity.testEntity).toStrictEqual(expect.any(TestEntity));
@@ -40,9 +44,9 @@ describe("repositoryEntityMiddleware", () => {
 
   test("should find repository on context with options key", async () => {
     // @ts-ignore
-    middleware = repositoryEntityMiddleware("request.body.identifier", TestEntity, TestRepository, {
+    middleware = repositoryEntityMiddleware(TestEntity, TestRepository, {
       repositoryKey: "repositoryKey",
-    });
+    })(path);
 
     ctx.repository.repositoryKey = { find: async () => new TestEntity() };
 
@@ -53,9 +57,9 @@ describe("repositoryEntityMiddleware", () => {
 
   test("should set entity on context with options key", async () => {
     // @ts-ignore
-    middleware = repositoryEntityMiddleware("request.body.identifier", TestEntity, TestRepository, {
+    middleware = repositoryEntityMiddleware(TestEntity, TestRepository, {
       entityKey: "entityKey",
-    });
+    })(path);
 
     await expect(middleware(ctx, next)).resolves.toBeUndefined();
 
@@ -64,9 +68,9 @@ describe("repositoryEntityMiddleware", () => {
 
   test("should succeed when identifier is optional", async () => {
     // @ts-ignore
-    middleware = repositoryEntityMiddleware("request.body.identifier", TestEntity, TestRepository, {
+    middleware = repositoryEntityMiddleware(TestEntity, TestRepository, {
       optional: true,
-    });
+    })(path);
 
     ctx.request.body.identifier = undefined;
 
