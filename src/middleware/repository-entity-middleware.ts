@@ -5,21 +5,24 @@ import { Middleware } from "@lindorm-io/koa";
 import { MongoContext } from "../types";
 import { camelCase, get, isString } from "lodash";
 
-interface Options {
+interface MiddlewareOptions {
   entityKey?: string;
-  optional?: boolean;
   repositoryKey?: string;
 }
 
+interface Options {
+  optional?: boolean;
+}
+
 export const repositoryEntityMiddleware =
-  (Entity: typeof EntityBase, Repository: typeof RepositoryBase, options?: Options) =>
-  (path: string): Middleware<MongoContext> =>
+  (Entity: typeof EntityBase, Repository: typeof RepositoryBase, middlewareOptions: MiddlewareOptions = {}) =>
+  (path: string, options: Options = {}): Middleware<MongoContext> =>
   async (ctx, next): Promise<void> => {
     const metric = ctx.getMetric("entity");
 
     const id = get(ctx, path);
 
-    if (!isString(id) && options?.optional) {
+    if (!isString(id) && options.optional) {
       ctx.logger.debug("Optional entity identifier not found", { path });
 
       metric.end();
@@ -35,8 +38,8 @@ export const repositoryEntityMiddleware =
       });
     }
 
-    const entity = options?.entityKey || camelCase(Entity.name);
-    const repository = options?.repositoryKey || camelCase(Repository.name);
+    const entity = middlewareOptions.entityKey || camelCase(Entity.name);
+    const repository = middlewareOptions.repositoryKey || camelCase(Repository.name);
 
     try {
       ctx.entity[entity] = await ctx.repository[repository].find({ id });
